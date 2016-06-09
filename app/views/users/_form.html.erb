@@ -1,0 +1,45 @@
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <ol>
+      <li>
+        <%= message %>
+      </li>
+    </ol>
+  <% end %>
+<% end %>
+
+<%= form_for setup_user(@user) do |f| %>
+  <h4>User Info</h4>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <h4>Address Info</h4>
+  <%= f.fields_for :address do |ff| %>
+    <%= ff.label :street %>
+    <%= ff.text_field :street %>
+
+    <%= ff.label :city %>
+    <%= ff.text_field :city %>
+
+    <%= ff.label :state %>
+    <%= ff.text_field :state %>
+
+    <%= ff.label :zip %>
+    <%= ff.text_field :zip %>
+  <% end %>
+
+  <h4>User Tasks</h4>
+  <%= f.fields_for :tasks do |ff| %>
+    <%= ff.label :name %>
+    <%= ff.text_field :name %>
+  <% end %>
+
+  <%= f.submit %>
+
+<% end %>
